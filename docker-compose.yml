@@ -11,3 +11,4 @@ services:
       - ./src:/var/www/html
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    command: "npm run watch"

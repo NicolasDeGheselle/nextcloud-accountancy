@@ -21,8 +21,7 @@ class PageController extends Controller {
 	 * @NoCSRFRequired
 	 */
 	public function index(): TemplateResponse {
-		Util::addScript(Application::APP_ID, 'accountancy-main');
-
-		return new TemplateResponse(Application::APP_ID, 'main');
+		Util::addScript('accountancy', 'accountancy-main');
+		return new TemplateResponse($this->appName, 'index'); // templates/index.php
 	}
 }
