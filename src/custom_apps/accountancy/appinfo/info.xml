@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <!--
+    SPDX-FileCopyrightText: Nicolas DE GHESELLE <nicolas@degheselle.fr>
+    SPDX-License-Identifier: CC0-1.0
+    -->
+    <id>accountancy</id>
+    <name>Accountancy</name>
+    <summary>Manage accountancy</summary>
+    <description><![CDATA[Do that and more.]]></description>
+    <version>0.0.1</version>
+    <licence>agpl</licence>
+    <author mail="nicolas@degheselle.fr" >Nicolas DE GHESELLE</author>
+    <namespace>Accountancy</namespace>
+    <category>organization</category>
+    <category>tools</category>
+    <bugs>http://example.com</bugs>
+    <dependencies>
+        <nextcloud min-version="24" max-version="24"/>
+    </dependencies>
+    <navigations>
+        <navigation>
+            <name>Accountancy</name>
+            <route>accountancy.page.index</route>
+        </navigation>
+    </navigations>
+</info>
