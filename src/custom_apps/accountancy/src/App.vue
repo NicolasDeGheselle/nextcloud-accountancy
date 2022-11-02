@@ -1,6 +1,6 @@
 <template>
     <NcContent app-name="accountancy">
-		Test BOUP
+		TEst final ?
 	</NcContent>
 </template>
 

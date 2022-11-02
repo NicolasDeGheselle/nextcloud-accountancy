@@ -9,6 +9,6 @@ services:
       NEXTCLOUD_ADMIN_PASSWORD: nextcloud
     volumes:
       - ./src:/var/www/html
+      - /var/www/html/custom_apps/accountancy/node_modules
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    command: "npm run watch"
