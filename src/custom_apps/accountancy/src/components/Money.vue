@@ -1,12 +1,16 @@
 <template>
-    <span class="money-tag" :class="balanceStyle">{{ formatBalance + moneySymbole }}</span>
+    <span :class="balanceStyle">{{ formatBalance }}</span>
 </template>
 
 <script>
 export default {
 	name: 'Money',
     props: {
-        balance: Number
+        balance: Number,
+		positiveBalanceClass: {
+      		type: String,
+      		default: "text-success"
+    	}
     },
 	data() {
 		return {
@@ -15,22 +19,17 @@ export default {
 	},
 	computed: {
 		balanceStyle() {
-			return {
-				"negative-balance": this.balance <= 0,
-				"positive-balance" : this.balance > 0
-			};
+			let style = {};
+			if (this.balance > 0) style[this.positiveBalanceClass] = true;
+
+			return style;
 		},
         formatBalance() {
-            return this.balance.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+			let sign = this.balance > 0 ? "+" : "";
+           	return sign + this.balance.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".") + this.moneySymbole;
         }
 	}
 };
 </script>
 <style>
-.money-tag .negative-balance {
-	color: var(--color-error);
-}
-.money-tag .positive-balance {
-	color: var(--color-primary-light-text);
-}
 </style>

@@ -5471,7 +5471,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Money',
   props: {
-    balance: Number
+    balance: Number,
+    positiveBalanceClass: {
+      type: String,
+      default: "text-success"
+    }
   },
   data: function data() {
     return {
@@ -5480,13 +5484,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     balanceStyle: function balanceStyle() {
-      return {
-        "negative-balance": this.balance <= 0,
-        "positive-balance": this.balance > 0
-      };
+      var style = {};
+      if (this.balance > 0) style[this.positiveBalanceClass] = true;
+      return style;
     },
     formatBalance: function formatBalance() {
-      return this.balance.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      var sign = this.balance > 0 ? "+" : "";
+      return sign + this.balance.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ".") + this.moneySymbole;
     }
   }
 });
@@ -5504,8 +5508,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _Money__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Money */ "./src/components/Money.vue");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Transactions',
+  components: {
+    Money: _Money__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   props: {
     transactionsList: Array
   }
@@ -5595,20 +5604,21 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("ul", {
-    staticClass: "accounts-list"
+    staticClass: "simple-list"
   }, [_vm._l(_vm.accountsList, function (account) {
     return _c("li", {
       key: account.id,
-      staticClass: "account-item"
+      staticClass: "simple-item"
     }, [_c("a", {
-      staticClass: "account-link"
+      staticClass: "simple-link"
     }, [_c("div", {
       staticClass: "flex-container"
     }, [_c("span", {
       staticClass: "name"
     }, [_vm._v(_vm._s(account.name))]), _vm._v(" "), _c("Money", {
       attrs: {
-        balance: account.balance
+        balance: account.balance,
+        positiveBalanceClass: "text-primary-light"
       }
     })], 1), _vm._v(" "), _c("div", {
       staticClass: "flex-container"
@@ -5618,10 +5628,11 @@ var render = function render() {
       staticClass: "sub-accounts"
     }, [_vm._v("\n\t\t\t\t\t" + _vm._s(account.subAccounts.length + " sub-accounts") + "\n\t\t\t\t")]) : _vm._e()])])]);
   }), _vm._v(" "), _c("li", {
-    staticClass: "account-item account-total flex-container"
+    staticClass: "simple-item account-total flex-container"
   }, [_c("b", [_vm._v("Total")]), _vm._v(" "), _c("b", [_c("Money", {
     attrs: {
-      balance: _vm.totalBalance
+      balance: _vm.totalBalance,
+      positiveBalanceClass: "text-primary-light"
     }
   })], 1)])], 2);
 };
@@ -5647,9 +5658,8 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("span", {
-    staticClass: "money-tag",
     class: _vm.balanceStyle
-  }, [_vm._v(_vm._s(_vm.formatBalance + _vm.moneySymbole))]);
+  }, [_vm._v(_vm._s(_vm.formatBalance))]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -5672,13 +5682,30 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _vm._m(0);
+  return _c("ul", {
+    staticClass: "simple-list"
+  }, _vm._l(_vm.transactionsList, function (transaction) {
+    return _c("li", {
+      key: transaction.id,
+      staticClass: "simple-item"
+    }, [_c("div", {
+      staticClass: "flex-container"
+    }, [_c("span", {
+      staticClass: "name"
+    }, [_vm._v(_vm._s(transaction.name))]), _vm._v(" "), _c("Money", {
+      attrs: {
+        balance: transaction.value
+      }
+    })], 1), _vm._v(" "), _c("div", {
+      staticClass: "flex-container"
+    }, [_c("span", {
+      staticClass: "description"
+    }, [_vm._v(_vm._s(transaction.description))]), _vm._v(" "), _c("span", {
+      staticClass: "text-light"
+    }, [_vm._v(_vm._s(transaction.date))])])]);
+  }), 0);
 };
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", [_c("p", [_vm._v("Transaction placeholder")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -5791,7 +5818,32 @@ var TransactionService = /*#__PURE__*/function () {
   _createClass(TransactionService, null, [{
     key: "All",
     value: function All() {
-      return [];
+      return [{
+        name: "test",
+        description: "edead dslfk mqfdlk mldqskf",
+        value: 50.50,
+        date: "01/05/2022"
+      }, {
+        name: "test",
+        description: "edead dslfk mqfdlk mldqskf",
+        value: 50.50,
+        date: "01/05/2022"
+      }, {
+        name: "test",
+        description: "edead dslfk mqfdlk mldqskf",
+        value: 50.50,
+        date: "01/05/2022"
+      }, {
+        name: "test",
+        description: "edead dslfk mqfdlk mldqskf",
+        value: 50.50,
+        date: "01/05/2022"
+      }, {
+        name: "test",
+        description: "edead dslfk mqfdlk mldqskf",
+        value: 50.50,
+        date: "01/05/2022"
+      }];
     }
   }]);
   return TransactionService;
@@ -9158,6 +9210,33 @@ handlePrototype(DOMTokenListPrototype, 'DOMTokenList');
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./css/styles.scss":
+/*!******************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./css/styles.scss ***!
+  \******************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/noSourceMaps.js */ "./node_modules/css-loader/dist/runtime/noSourceMaps.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".text-primary-light {\n  color: var(--color-primary-light-text);\n}\n\n.text-success {\n  color: var(--color-success);\n}\n\n.text-light {\n  color: var(--color-placeholder-dark);\n}\n\n.flex-container {\n  display: flex;\n  justify-content: space-between;\n}\n\n/** Simple list **/\n.simple-list {\n  list-style-type: none;\n  padding: 0;\n  margin: 0;\n}\n\n.simple-list .simple-item {\n  border-top: 1px solid var(--color-background-dark);\n  padding: 0.6rem;\n}\n\n.simple-list .simple-item:hover {\n  background-color: var(--color-background-hover);\n}\n\n.simple-list .simple-link {\n  display: block;\n}\n\n.simple-list .simple-link:hover {\n  background-color: var(--color-background-hover);\n}\n\n.simple-item .description {\n  color: var(--color-text-lighter);\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/splitpanes/dist/splitpanes.css":
 /*!*******************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/splitpanes/dist/splitpanes.css ***!
@@ -9205,34 +9284,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.flex-container {\r\n\tdisplay: flex;\r\n\tjustify-content: space-between;\n}\n.accounts-list {\r\n  list-style-type: none;\r\n  padding: 0;\r\n  margin: 0;\n}\n.account-item {\r\n\tborder-top: 1px solid var(--color-background-dark);\n}\n.account-total {\r\n\tbackground-color: var(--color-background-hover);\n}\n.account-total, .account-link {\r\n\tpadding: 0.6rem;\n}\n.account-link {\r\n\tdisplay: block;\n}\n.account-link:hover {\r\n\tbackground-color: var(--color-background-hover);\n}\n.account-item .description {\r\n\tcolor: var(--color-text-lighter);\n}\n.negative-balance {\r\n\tcolor: var(--color-error);\n}\n.positive-balance {\r\n\tcolor: var(--color-success);\n}\r\n", ""]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Money.vue?vue&type=style&index=0&id=eeb8a680&lang=css&":
-/*!*****************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Money.vue?vue&type=style&index=0&id=eeb8a680&lang=css& ***!
-  \*****************************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/noSourceMaps.js */ "./node_modules/css-loader/dist/runtime/noSourceMaps.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.money-tag .negative-balance {\r\n\tcolor: var(--color-error);\n}\n.money-tag .positive-balance {\r\n\tcolor: var(--color-primary-light-text);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.account-total {\r\n\tbackground-color: var(--color-background-hover);\n}\n.sub-accounts {\r\n\tbackground: var(--color-primary-light);\r\n\tpadding: 0 0.5rem;\r\n\tborder-radius: 0.5rem;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -9259,7 +9311,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.content-container {\r\n\tborder: 1px solid var(--color-background-dark);\r\n    border-radius: 0.4rem;\r\n    margin: 0.1rem;\r\n    padding: 0.4rem 0.6rem;\n}\n.content-title {\r\n    color: var(--color-text-lighter);\r\n    font-size: 32px;\r\n    margin: 0.6rem 0;\n}\n.row {\r\n    display: flex;\r\n    flex-wrap: wrap;\n}\n.col {\r\n  flex-grow: 1;\r\n  flex-shrink: 1;\r\n  flex-basis: 1;\n}\n.col-6 {\r\n    width: 50%;\n}\n@media (max-width: 991.98px) {\n.col-md-12 {\r\n        width: 100%;\n}\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.content-container {\r\n\tborder: 1px solid var(--color-background-dark);\r\n    border-radius: 0.4rem;\r\n    margin: 0.1rem;\r\n    padding: 0.4rem 0.6rem;\n}\n.content-title {\r\n    color: var(--color-text-lighter);\r\n    font-size: 32px;\r\n    margin: 0.6rem 0;\r\n    font-weight: lighter;\n}\n.row {\r\n    display: flex;\r\n    flex-wrap: wrap;\n}\n.col {\r\n  flex-grow: 1;\r\n  flex-shrink: 1;\r\n  flex-basis: 1;\n}\n.col-6 {\r\n    width: 50%;\n}\n@media (max-width: 991.98px) {\n.col-md-12 {\r\n        width: 100%;\n}\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -17179,6 +17231,61 @@ var L=Object.defineProperty,B=Object.defineProperties;var F=Object.getOwnPropert
 
 /***/ }),
 
+/***/ "./css/styles.scss":
+/*!*************************!*\
+  !*** ./css/styles.scss ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../node_modules/style-loader/dist/runtime/styleDomAPI.js */ "./node_modules/style-loader/dist/runtime/styleDomAPI.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../node_modules/style-loader/dist/runtime/insertBySelector.js */ "./node_modules/style-loader/dist/runtime/insertBySelector.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../node_modules/style-loader/dist/runtime/insertStyleElement.js */ "./node_modules/style-loader/dist/runtime/insertStyleElement.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../node_modules/style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_styles_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../node_modules/css-loader/dist/cjs.js!../node_modules/sass-loader/dist/cjs.js!./styles.scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./css/styles.scss");
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
+options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
+
+      options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
+    
+options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
+options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_styles_scss__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+
+
+
+
+       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_styles_scss__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_styles_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_styles_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
+
+
+/***/ }),
+
 /***/ "./node_modules/splitpanes/dist/splitpanes.css":
 /*!*****************************************************!*\
   !*** ./node_modules/splitpanes/dist/splitpanes.css ***!
@@ -17285,61 +17392,6 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
        /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Accounts_vue_vue_type_style_index_0_id_69e97916_lang_css___WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Accounts_vue_vue_type_style_index_0_id_69e97916_lang_css___WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Accounts_vue_vue_type_style_index_0_id_69e97916_lang_css___WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
-
-
-/***/ }),
-
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Money.vue?vue&type=style&index=0&id=eeb8a680&lang=css&":
-/*!*********************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Money.vue?vue&type=style&index=0&id=eeb8a680&lang=css& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/styleDomAPI.js */ "./node_modules/style-loader/dist/runtime/styleDomAPI.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/insertBySelector.js */ "./node_modules/style-loader/dist/runtime/insertBySelector.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/insertStyleElement.js */ "./node_modules/style-loader/dist/runtime/insertStyleElement.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Money_vue_vue_type_style_index_0_id_eeb8a680_lang_css___WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Money.vue?vue&type=style&index=0&id=eeb8a680&lang=css& */ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Money.vue?vue&type=style&index=0&id=eeb8a680&lang=css&");
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
-var options = {};
-
-options.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
-options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
-
-      options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
-    
-options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
-options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
-
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Money_vue_vue_type_style_index_0_id_eeb8a680_lang_css___WEBPACK_IMPORTED_MODULE_6__["default"], options);
-
-
-
-
-       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Money_vue_vue_type_style_index_0_id_eeb8a680_lang_css___WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Money_vue_vue_type_style_index_0_id_eeb8a680_lang_css___WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Money_vue_vue_type_style_index_0_id_eeb8a680_lang_css___WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
 
 
 /***/ }),
@@ -18891,17 +18943,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Money_vue_vue_type_template_id_eeb8a680___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Money.vue?vue&type=template&id=eeb8a680& */ "./src/components/Money.vue?vue&type=template&id=eeb8a680&");
 /* harmony import */ var _Money_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Money.vue?vue&type=script&lang=js& */ "./src/components/Money.vue?vue&type=script&lang=js&");
-/* harmony import */ var _Money_vue_vue_type_style_index_0_id_eeb8a680_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Money.vue?vue&type=style&index=0&id=eeb8a680&lang=css& */ "./src/components/Money.vue?vue&type=style&index=0&id=eeb8a680&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
-;
 
 
 /* normalize component */
-
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _Money_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _Money_vue_vue_type_template_id_eeb8a680___WEBPACK_IMPORTED_MODULE_0__.render,
   _Money_vue_vue_type_template_id_eeb8a680___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -19173,19 +19223,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Accounts_vue_vue_type_style_index_0_id_69e97916_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Accounts.vue?vue&type=style&index=0&id=69e97916&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Accounts.vue?vue&type=style&index=0&id=69e97916&lang=css&");
-
-
-/***/ }),
-
-/***/ "./src/components/Money.vue?vue&type=style&index=0&id=eeb8a680&lang=css&":
-/*!*******************************************************************************!*\
-  !*** ./src/components/Money.vue?vue&type=style&index=0&id=eeb8a680&lang=css& ***!
-  \*******************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Money_vue_vue_type_style_index_0_id_eeb8a680_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Money.vue?vue&type=style&index=0&id=eeb8a680&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/Money.vue?vue&type=style&index=0&id=eeb8a680&lang=css&");
 
 
 /***/ }),
@@ -37103,30 +37140,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _nextcloud_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @nextcloud/router */ "./node_modules/@nextcloud/router/dist/index.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js");
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App */ "./src/App.vue");
+/* harmony import */ var _css_styles_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../css/styles.scss */ "./css/styles.scss");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm.js");
+/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App */ "./src/App.vue");
+
 
 
 
 
 // eslint-disable-next-line
 __webpack_require__.p = (0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_0__.generateFilePath)("accountancy", '', 'js/');
-vue__WEBPACK_IMPORTED_MODULE_2__["default"].prototype.OC = window.OC;
-vue__WEBPACK_IMPORTED_MODULE_2__["default"].prototype.OCA = window.OCA;
-vue__WEBPACK_IMPORTED_MODULE_2__["default"].mixin({
+vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.OC = window.OC;
+vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.OCA = window.OCA;
+vue__WEBPACK_IMPORTED_MODULE_3__["default"].mixin({
   methods: {
     t: t,
     n: n
   }
 });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue__WEBPACK_IMPORTED_MODULE_2__["default"]({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue__WEBPACK_IMPORTED_MODULE_3__["default"]({
   el: '#app',
   render: function render(h) {
-    return h(_App__WEBPACK_IMPORTED_MODULE_1__["default"]);
+    return h(_App__WEBPACK_IMPORTED_MODULE_2__["default"]);
   }
 }));
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=accountancy-main.js.map?v=88ca6c6da06b1269d961
+//# sourceMappingURL=accountancy-main.js.map?v=25aec589eedee90271dd

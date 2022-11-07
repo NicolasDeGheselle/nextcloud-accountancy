@@ -1,4 +1,5 @@
 import { generateFilePath } from '@nextcloud/router'
+import '../css/styles.scss'
 
 import Vue from 'vue'
 import App from './App'

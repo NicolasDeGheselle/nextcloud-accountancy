@@ -51,6 +51,7 @@ export default {
     color: var(--color-text-lighter);
     font-size: 32px;
     margin: 0.6rem 0;
+    font-weight: lighter;
 }
 
 .row {

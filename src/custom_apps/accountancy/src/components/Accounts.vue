@@ -1,12 +1,12 @@
 <template>
-    <ul class="accounts-list">
-		<li class="account-item"
+    <ul class="simple-list">
+		<li class="simple-item"
 		   	v-for="account in accountsList"
         	:key="account.id">
-			<a class="account-link">
+			<a class="simple-link">
 			<div class="flex-container">
 				<span class="name">{{account.name}}</span>
-				<Money :balance="account.balance"/>
+				<Money :balance="account.balance" positiveBalanceClass="text-primary-light"/>
 			</div>
 			<div class="flex-container">
 				<span class="description">{{account.description}}</span>
@@ -16,9 +16,9 @@
 			</div>
 			</a>
 		</li>
-		<li class="account-item account-total flex-container">
+		<li class="simple-item account-total flex-container">
 			<b>Total</b>
-			<b><Money :balance="totalBalance"/></b>
+			<b><Money :balance="totalBalance" positiveBalanceClass="text-primary-light"/></b>
 		</li>
     </ul>
 </template>
@@ -53,38 +53,12 @@ export default {
 };
 </script>
 <style>
-.flex-container {
-	display: flex;
-	justify-content: space-between;
-}
-.accounts-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-.account-item {
-	border-top: 1px solid var(--color-background-dark);
-}
 .account-total {
 	background-color: var(--color-background-hover);
 }
-.account-total, .account-link {
-	padding: 0.6rem;
-}
-.account-link {
-	display: block;
-}
-.account-link:hover {
-	background-color: var(--color-background-hover);
-}
-.account-item .description {
-	color: var(--color-text-lighter);
-}
-
-.negative-balance {
-	color: var(--color-error);
-}
-.positive-balance {
-	color: var(--color-success);
+.sub-accounts {
+	background: var(--color-primary-light);
+	padding: 0 0.5rem;
+	border-radius: 0.5rem;
 }
 </style>
