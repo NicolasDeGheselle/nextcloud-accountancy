@@ -36,3 +36,22 @@
 .simple-item .description {
     color: var(--color-text-lighter);
 }
+
+/** grid **/
+
+.row {
+    display: flex;
+}
+.col {
+    width: 100%;
+}
+
+.col-6 {
+    width: 50%;
+}
+
+@media (max-width: 991.98px) {
+    .col-md-12 {
+        min-width: 100%;
+    }
+}

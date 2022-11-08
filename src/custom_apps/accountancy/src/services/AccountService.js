@@ -8,7 +8,28 @@ export default class AccountService {
                 name: "Test",
                 description: "n° test",
                 type: "bank",
-                balance: 50151.155050
+                balance: 500.155050
+            },
+            {
+                id: "0513513-0",
+                name: "Test",
+                description: "n° test",
+                type: "bank",
+                balance: -10
+            },
+            {
+                id: "0513513-52",
+                name: "Test",
+                description: "n° test",
+                type: "bank",
+                balance: 30.4
+            },
+            {
+                id: "0513513-30",
+                name: "Test",
+                description: "n° test",
+                type: "bank",
+                balance: 50
             },
             {
                 id: "0513513-3",
