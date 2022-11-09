@@ -1,48 +1,48 @@
-export default class AccountService {
-
-    static All()
-    {
-        return [
+class Account {
+    constructor(name, subAccounts) {
+        this.id = "ID-"+name;
+        this.name = name;
+        this.subAccounts = subAccounts;
+        this.description = "Root account";
+        this.type = "bank";
+        this.balance = 500.155050;
+        this.transactions = [
             {
-                id: "0513513-4",
-                name: "Test",
-                description: "n° test",
-                type: "bank",
-                balance: 500.155050
+                name: "test",
+                description: "edead dslfk mqfdlk mldqskf",
+                value: 50.50,
+                date: "01/05/2022"
             },
             {
-                id: "0513513-0",
-                name: "Test",
-                description: "n° test",
-                type: "bank",
-                balance: -10
+                name: "test",
+                description: "edead dslfk mqfdlk mldqskf",
+                value: 50.50,
+                date: "01/05/2022"
             },
             {
-                id: "0513513-52",
-                name: "Test",
-                description: "n° test",
-                type: "bank",
-                balance: 30.4
-            },
-            {
-                id: "0513513-30",
-                name: "Test",
-                description: "n° test",
-                type: "bank",
-                balance: 50
-            },
-            {
-                id: "0513513-3",
-                name: "Test 2",
-                description: "n° test",
-                type: "bank",
-                balance: -150.50,
-                subAccounts: [
-                    "0513513-1",
-                    "0513513-2"
-                ]
+                name: "test",
+                description: "edead dslfk mqfdlk mldqskf",
+                value: 50.50,
+                date: "01/05/2022"
             }
         ];
+    }
+
+    hasSubs() {
+        return this.subAccounts && this.subAccounts.length;
+    }
+}
+
+export default class AccountService {
+    static GetRoot() {
+        return new Account("root", [
+            new Account("Test-1"),
+            new Account("Test-2")
+        ]);
+    }
+
+    static GetById(id) {
+        return new Account("NAME_" + id);
     }
 }
   

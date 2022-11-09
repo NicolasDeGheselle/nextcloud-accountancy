@@ -18,7 +18,7 @@
 		</li>
 		<li class="simple-item account-total flex-container">
 			<b>Total</b>
-			<b><Money :balance="totalBalance" positiveBalanceClass="text-primary-light"/></b>
+			<b><Money :balance="total" positiveBalanceClass="text-primary-light"/></b>
 		</li>
     </ul>
 </template>
@@ -32,7 +32,8 @@ export default {
 		Money
 	},
 	props: {
-		accountsList: Array
+		accountsList: Array,
+		total: Number
 	},
 	methods: {
 		balanceStyle(balance) {
@@ -44,12 +45,7 @@ export default {
 		formatBalance(balance) {
 			return Utils.FormatBalance(balance);
 		}
-	},
-	computed: {
-		totalBalance() {
-			return this.accountsList.reduce((partialSum, a) => partialSum + a.balance, 0);
-		},
-  	}
+	}
 };
 </script>
 <style>

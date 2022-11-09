@@ -1,18 +1,18 @@
 <template>
     <NcAppContent app-name="accountancy">
-		<Dashboard />
+		<AccountPage />
 	</NcAppContent>
 </template>
 
 <script>
 import NcAppContent from "@nextcloud/vue/dist/Components/AppContent";
-import Dashboard from './layout/Dashboard.vue';
+import AccountPage from './layout/AccountPage.vue';
 
 export default {
 	name: 'App',
 	components: {
 		NcAppContent,
-		Dashboard
+		AccountPage
 	},
 	data() {
 		return {
