@@ -15,6 +15,15 @@ return [
 	'resources' => [
 	],
 	'routes' => [
-		['name' => 'page#index', 'url' => '/', 'verb' => 'GET']
+		[
+			'name' => 'page#index',
+			'url' => '/',
+			'verb' => 'GET'
+		],
+		[
+			'name' => 'page#account',
+			'url' => '/accounts/{id}',
+			'verb' => 'GET'
+		],
 	]
 ];

@@ -20,7 +20,7 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 */
-	public function index(): TemplateResponse {
+	public function index(int $id): TemplateResponse {
 		Util::addScript('accountancy', 'accountancy-main');
 		return new TemplateResponse($this->appName, 'index'); // templates/index.php
 	}
