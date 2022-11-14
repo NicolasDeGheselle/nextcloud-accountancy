@@ -20,7 +20,16 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 */
-	public function index(int $id): TemplateResponse {
+	public function index(): TemplateResponse {
+		Util::addScript('accountancy', 'accountancy-main');
+		return new TemplateResponse($this->appName, 'index'); // templates/index.php
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 */
+	public function account(int $id): TemplateResponse {
 		Util::addScript('accountancy', 'accountancy-main');
 		return new TemplateResponse($this->appName, 'index'); // templates/index.php
 	}

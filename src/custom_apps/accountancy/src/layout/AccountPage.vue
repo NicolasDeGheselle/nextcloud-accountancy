@@ -7,12 +7,14 @@
             </div>
         </div>
         <div class="row" v-if="haveSubs">
-            <div class="col-6 col-md-12 content-container">
-                <Graphs :account="account" />
+            <div class="col-6 col-md-12">
+                <Graphs class="content-container" :account="account" />
             </div>
-            <div class="col-6 col-md-12 content-container">
-                <h4 class="content-title">Accounts</h4>
-                <Accounts :accountsList="account.subAccounts" :total="account.balance"/>
+            <div class="col-6 col-md-12">
+                <div class="content-container">
+                    <h4 class="content-title">Accounts</h4>
+                    <Accounts :accountsList="account.subAccounts" :total="account.balance"/>
+                </div>
             </div>
         </div>
         <div class="content-container">
@@ -55,6 +57,7 @@ export default {
         }
     },
     created() {
+        console.log(this);
         if (this.accountId)
             this.account = AccountService.GetById(this.accountId);
         else

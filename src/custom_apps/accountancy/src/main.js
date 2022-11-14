@@ -3,6 +3,7 @@ import '../css/styles.scss'
 
 import Vue from 'vue'
 import App from './App'
+import router from './router'
 
 // eslint-disable-next-line
 __webpack_public_path__ = generateFilePath(appName, '', 'js/')
@@ -13,6 +14,6 @@ Vue.prototype.OCA = window.OCA
 Vue.mixin({ methods: { t, n } })
 
 export default new Vue({
-	el: '#app',
 	render: h => h(App),
-})
+	router: router
+}).$mount('#app');

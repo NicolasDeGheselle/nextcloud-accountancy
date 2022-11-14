@@ -25,7 +25,8 @@
     "@nextcloud/router": "^2.0.0",
     "@nextcloud/vue": "^5.4.0",
     "chart.js": "^3.9.1",
-    "vue": "^2.7.0"
+    "vue": "^2.7.0",
+    "vue-router": "^3.6.5"
   },
   "browserslist": [
     "extends @nextcloud/browserslist-config"
