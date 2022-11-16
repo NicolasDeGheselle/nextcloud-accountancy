@@ -1,13 +1,12 @@
 import Vue from 'vue'
-import VueRouter  from 'vue-router'
+import Router  from 'vue-router'
 import { generateUrl } from '@nextcloud/router'
 
 import AccountPage from './layout/AccountPage';
-import Money from './components/Money';
 
-Vue.use(VueRouter)
+Vue.use(Router)
 
-export default new VueRouter({
+export default new Router({
 	mode: 'history',
 	base: generateUrl('apps/accountancy'),
 	linkActiveClass: 'active',
@@ -20,7 +19,7 @@ export default new VueRouter({
 		{
 			path: '/accounts/:accountId',
 			name: 'accounts',
-			components: Money
+			component: AccountPage
 		},
 	],
 })
