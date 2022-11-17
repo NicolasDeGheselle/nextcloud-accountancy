@@ -3,6 +3,7 @@ import Router  from 'vue-router'
 import { generateUrl } from '@nextcloud/router'
 
 import AccountPage from './layout/AccountPage';
+import Money from './components/Money';
 
 Vue.use(Router)
 
@@ -19,7 +20,8 @@ export default new Router({
 		{
 			path: '/accounts/:accountId',
 			name: 'accounts',
-			component: AccountPage
+			component: AccountPage,
+			props:  true
 		},
 	],
 })

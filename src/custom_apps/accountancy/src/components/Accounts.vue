@@ -4,16 +4,16 @@
 		   	v-for="account in accountsList"
         	:key="account.id">
 			<router-link :to="{ name: 'accounts', params: { accountId: account.id }}" class="simple-link">
-			<div class="flex-container">
-				<span class="name">{{account.name}}</span>
-				<Money :balance="account.balance" positiveBalanceClass="text-primary-light"/>
-			</div>
-			<div class="flex-container">
-				<span class="description">{{account.description}}</span>
-				<span class="sub-accounts" v-if="account.subAccounts">
-					{{account.subAccounts.length + " sub-accounts"}}
-				</span>
-			</div>
+				<div class="flex-container">
+					<span class="name">{{account.name}}</span>
+					<Money :balance="account.balance" positiveBalanceClass="text-primary-light"/>
+				</div>
+				<div class="flex-container">
+					<span class="description">{{account.description}}</span>
+					<span class="sub-accounts" v-if="account.subAccounts">
+						{{account.subAccounts.length + " sub-accounts"}}
+					</span>
+				</div>
 			</router-link> 
 		</li>
 		<li class="simple-item account-total flex-container">

@@ -1,7 +1,12 @@
 class Account {
     constructor(name, subAccounts) {
-        this.id = "ID-"+name;
-        this.name = name;
+        this.parents = [];
+        if (name)
+        {
+            this.id = "ID-"+name;
+            this.name = name;
+        }
+
         this.subAccounts = subAccounts;
         this.description = "Root account";
         this.type = "bank";
@@ -35,14 +40,20 @@ class Account {
 
 export default class AccountService {
     static GetRoot() {
-        return new Account("root", [
+        return new Account(null, [
             new Account("Test-1"),
             new Account("Test-2")
         ]);
     }
 
     static GetById(id) {
-        return new Account("NAME_" + id);
+        let test = new Account("NAME_" + id);
+        test.parents = [{
+            id: 'bloupy',
+            name: "Bloupy !"
+        }];
+
+        return test;
     }
 }
   

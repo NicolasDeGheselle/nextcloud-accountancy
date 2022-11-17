@@ -1,8 +1,14 @@
 <template>
     <div>
-        <div class="content-container">
+        <div>
             <div class="flex-container main-container">
-                <h2 class="main-title">{{account.name}}</h2>
+                        <Breadcrumbs>
+            <Breadcrumb
+            v-for="parent in parentTree"
+        	:key="parent.id"
+            :title="parent.name"
+            :to="{ name: (parent.id) ? 'accounts' : 'main', params: { accountId: parent.id }}"/>
+        </Breadcrumbs>
                 <Money class="main-money" :balance="account.balance" positiveBalanceClass="text-primary-light"/>
             </div>
         </div>
@@ -27,6 +33,8 @@
 <script>
 import AccountService from "../services/AccountService";
 
+import Breadcrumbs from "@nextcloud/vue/dist/Components/Breadcrumbs";
+import Breadcrumb from "@nextcloud/vue/dist/Components/Breadcrumb";
 import Money from "../components/Money.vue";
 import Graphs from "../components/Graphs.vue";
 import Accounts from "../components/Accounts.vue";
@@ -36,6 +44,8 @@ export default {
 	name: 'AccountPage',
     props: ["accountId"],
     components: {
+        Breadcrumbs,
+        Breadcrumb,
         Accounts,
         Transactions,
         Money,
@@ -44,6 +54,7 @@ export default {
 	data() {
 		return {
             account: {
+                parents: [],
                 name: "",
                 balance: 0,
                 subAccounts: [],
@@ -54,15 +65,44 @@ export default {
     computed: {
         haveSubs() {
             return this.account?.hasSubs();
+        },
+        parentTree() {
+            let tree = [{
+                id: null,
+                name: ""
+            }];
+
+            if (this.account.parents?.length)
+            {
+                tree = tree.concat(this.account.parents)
+            }
+
+            if (this.account.id)
+            {
+                tree.push({
+                    id: this.account.id,
+                    name: this.account.name
+                });
+            }
+
+            return tree;
+        }
+    },
+    methods: {
+        Load() {
+            if (this.accountId)
+                this.account = AccountService.GetById(this.accountId);
+            else
+                this.account = AccountService.GetRoot();
         }
     },
     created() {
-        console.log(this);
-        if (this.accountId)
-            this.account = AccountService.GetById(this.accountId);
-        else
-            this.account = AccountService.GetRoot();
-    }
+        this.Load();
+    },
+    beforeRouteUpdate(to, from, next) {
+    this.name = to.params.name
+    next()
+  }
 };
 </script>
 <style>

@@ -1,6 +1,6 @@
 <template>
     <NcAppContent app-name="accountancy">
-		<router-view></router-view>
+		<router-view :key="$route.fullPath"></router-view>
 	</NcAppContent>
 </template>
 
