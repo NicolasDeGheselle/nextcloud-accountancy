@@ -32,21 +32,30 @@ class Account {
             }
         ];
     }
-
-    hasSubs() {
-        return this.subAccounts && this.subAccounts.length;
-    }
 }
 
+import axios from '@nextcloud/axios'
+import { generateUrl } from '@nextcloud/router'
+
 export default class AccountService {
-    static GetRoot() {
+
+    url(url) {
+		url = `/apps/accountancy${url}`
+		return generateUrl(url)
+	}
+
+    GetRoot() {
+        axios.get(this.url('/accounts')).then((response) => {
+            console.debug(response);
+        });
+
         return new Account(null, [
             new Account("Test-1"),
             new Account("Test-2")
         ]);
     }
 
-    static GetById(id) {
+    GetById(id) {
         let test = new Account("NAME_" + id);
         test.parents = [{
             id: 'bloupy',

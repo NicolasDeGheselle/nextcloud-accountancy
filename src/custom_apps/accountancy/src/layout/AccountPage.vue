@@ -53,6 +53,7 @@ export default {
     },
 	data() {
 		return {
+            accountService: new AccountService(),
             account: {
                 parents: [],
                 name: "",
@@ -64,7 +65,7 @@ export default {
 	},
     computed: {
         haveSubs() {
-            return this.account?.hasSubs();
+            return this.account?.subAccounts?.length;
         },
         parentTree() {
             let tree = [{
@@ -91,9 +92,9 @@ export default {
     methods: {
         Load() {
             if (this.accountId)
-                this.account = AccountService.GetById(this.accountId);
+                this.account = this.accountService.GetById(this.accountId);
             else
-                this.account = AccountService.GetRoot();
+                this.account = this.accountService.GetRoot();
         }
     },
     created() {

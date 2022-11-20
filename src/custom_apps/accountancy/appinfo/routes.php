@@ -15,15 +15,12 @@ return [
 	'resources' => [
 	],
 	'routes' => [
-		[
-			'name' => 'page#index',
-			'url' => '/',
-			'verb' => 'GET'
-		],
-		[
-			'name' => 'page#account',
-			'url' => '/accounts/{id}',
-			'verb' => 'GET'
-		],
+		[ 'name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+		[ 'name' => 'page#account', 'url' => '/accounts/{id}', 'verb' => 'GET'],
+
+		// API
+		
+		['name' => 'account_api#index', 'url' => '/api/v{apiVersion}/accounts', 'verb' => 'GET'],
+		['name' => 'account_api#get', 'url' => '/api/v{apiVersion}/accounts/{accountId}', 'verb' => 'GET']
 	]
 ];

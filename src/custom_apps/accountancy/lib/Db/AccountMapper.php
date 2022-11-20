@@ -14,31 +14,11 @@ class AccountMapper extends QBMapper {
         parent::__construct($db, TABLE_NAME);
     }
 
-
-    /**
-     * @throws \OCP\AppFramework\Db\DoesNotExistException if not found
-     * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException if more than one result
-     */
-    public function find(int $id) {
+    public function findAll(string $userId) {
         $qb = $this->db->getQueryBuilder();
-
-        $qb->select('*')
-           ->from(TABLE_NAME)
-           ->where(
-               $qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT))
-           );
-
-        return $this->findEntity($qb);
-    }
-
-    public function findAll($limit=null, $offset=null) {
-        $qb = $this->db->getQueryBuilder();
-
-        $qb->select('*')
-           ->from(TABLE_NAME)
-           ->setMaxResults($limit)
-           ->setFirstResult($offset);
-
-        return $this->findEntities($sql);
+		$qb->select('id', 'name')
+			->from(TABLE_NAME, 'b')
+			->where($qb->expr()->eq('owner', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR)));
+        return $this->findEntities($qb);
     }
 }

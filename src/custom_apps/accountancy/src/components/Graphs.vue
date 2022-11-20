@@ -52,7 +52,7 @@ export default {
         }
     },
     mounted() {
-        if (this.account && this.account.hasSubs())
+        if (this.account && this.account?.subAccounts?.length)
             this.createChart();
     }
 };
