@@ -17,3 +17,10 @@ Webpack :
 ```
 docker exec -it nextcloud-accountancy_app_1 npm run watch
 ```
+
+## Migration
+
+```
+docker exec -u 33 -it nextcloud-accountancy_app_1  /bin/bash
+php occ migration:execute accountancy 000001Date20221123204731
+```

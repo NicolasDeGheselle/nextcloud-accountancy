@@ -40,15 +40,11 @@ import { generateUrl } from '@nextcloud/router'
 export default class AccountService {
 
     url(url) {
-		url = `/apps/accountancy${url}`
+		url = `/apps/accountancy/api/v1/accounts${url}`
 		return generateUrl(url)
 	}
 
     GetRoot() {
-        axios.get(this.url('/accounts')).then((response) => {
-            console.debug(response);
-        });
-
         return new Account(null, [
             new Account("Test-1"),
             new Account("Test-2")
@@ -56,6 +52,11 @@ export default class AccountService {
     }
 
     GetById(id) {
+        axios.get(this.url('')).then((response) => {
+            console.debug(response);
+        });
+
+
         let test = new Account("NAME_" + id);
         test.parents = [{
             id: 'bloupy',

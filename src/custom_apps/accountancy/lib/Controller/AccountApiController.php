@@ -34,9 +34,10 @@ class AccountAPIController extends ApiController {
 	 * @throws StatusException
 	 */
 	public function index() {
+		/*
 		$accounts = $this->accountService->findAll();
 		$response = new DataResponse($accounts, HTTP::STATUS_OK);
-		return $response;
+		return $response;*/
 	}
 
 }
