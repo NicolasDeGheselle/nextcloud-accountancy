@@ -11,7 +11,8 @@ use OCA\Accountancy\Service\AccountService;
 
 class AccountAPIController extends ApiController {
 
-    private $accountService;
+    private AccountService $accountService;
+    private ?string $userId;
 
     	/**
 	 * @param string $appName
@@ -19,7 +20,7 @@ class AccountAPIController extends ApiController {
 	 * @param AccountService $service
 	 * @param $userId
 	 */
-    public function __construct($appName, IRequest $request, AccountService $service, $userId) {
+    public function __construct(string $appName, IRequest $request, AccountService $service, ?string $userId = null) {
 		parent::__construct($appName, $request);
 		$this->accountService = $service;
 		$this->userId = $userId;
@@ -33,11 +34,9 @@ class AccountAPIController extends ApiController {
 	 * Return all of the boards that the current user has access to.
 	 * @throws StatusException
 	 */
-	public function index() {
-		/*
+	public function index() : DataResponse {
 		$accounts = $this->accountService->findAll();
-		$response = new DataResponse($accounts, HTTP::STATUS_OK);
-		return $response;*/
+		return new DataResponse($accounts, HTTP::STATUS_OK);
 	}
 
 }

@@ -6,16 +6,13 @@ use OCA\Accountancy\Db\AccountMapper;
 
 class AccountService {
 
-    private AccountMapper $accountdMapper;
+    private AccountMapper $mapper;
 
-    public function __construct(
-		AccountMapper $accountdMapper,
-		?string $userId
-	) {
-		$this->accountdMapper = $accountdMapper;
+    public function __construct(AccountMapper $mapper) {
+		$this->mapper = $mapper;
 	}
 
-    public function findAll() {
-        return $this->accountdMapper->findAll($this->userId);
+    public function findAll(string $userId): array {
+        return $this->mapper->findAll($this->userId);
 	}
 }

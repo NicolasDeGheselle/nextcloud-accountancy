@@ -14,9 +14,9 @@ class AccountMapper extends QBMapper {
 
     public function findAll(string $userId) {
         $qb = $this->db->getQueryBuilder();
-		$qb->select('id', 'name')
+		$qb->select('*')
 			->from($this->getTableName())
-			->where($qb->expr()->eq('owner', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR)));
+			->where($qb->expr()->eq('user_id', $qb->createNamedParameter($userId, IQueryBuilder::PARAM_STR)));
         return $this->findEntities($qb);
     }
 }
