@@ -22,27 +22,33 @@ class Version000000Date20181013124731 extends SimpleMigrationStep {
 		/** @var ISchemaWrapper $schema */
 		$schema = $schemaClosure();
 
-		if (!$schema->hasTable('accountancy')) {
-			$table = $schema->createTable('accountancy');
+		if (!$schema->hasTable('accountancy_accounts')) {
+			$table = $schema->createTable('accountancy_accounts');
 			$table->addColumn('id', 'integer', [
 				'autoincrement' => true,
 				'notnull' => true,
 			]);
-			$table->addColumn('title', 'string', [
+			$table->addColumn('owner', 'string', [
 				'notnull' => true,
-				'length' => 200
+				'length' => 64,
 			]);
-			$table->addColumn('user_id', 'string', [
+			$table->addColumn('name', 'string', [
 				'notnull' => true,
-				'length' => 200,
+				'length' => 50
 			]);
-			$table->addColumn('content', 'text', [
+			$table->addColumn('description', 'string', [
 				'notnull' => true,
-				'default' => ''
+				'length' => 250,
+			]);
+			$table->addColumn('type', 'string', [
+				'notnull' => true,
+				'length' => 50
+			]);
+			$table->addColumn('balance', 'float', [
+				'notnull' => true
 			]);
 
 			$table->setPrimaryKey(['id']);
-			$table->addIndex(['user_id'], 'accountancy_user_id_index');
 		}
 		return $schema;
 	}

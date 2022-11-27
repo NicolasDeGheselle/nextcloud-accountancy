@@ -8,6 +8,7 @@ class Account extends Entity implements JsonSerializable  {
 
     protected $parentTree;
 
+    protected $owner;
     protected $name;
     protected $description;
     protected $type;
@@ -19,6 +20,8 @@ class Account extends Entity implements JsonSerializable  {
         $this->addType('description',   'string');
         $this->addType('type',          'string');
         $this->addType('balance',       'float');
+
+        $this->addResolvable('owner');
     }
 
     public function jsonSerialize() {
