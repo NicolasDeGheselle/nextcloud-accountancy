@@ -1,10 +1,7 @@
 <?php
-
 namespace OCA\Accountancy\Db;
 
-use OCP\AppFramework\Db\Entity;
-
-class Account extends Entity implements JsonSerializable  {
+class Account extends RelationalEntity  {
 
     protected $parentTree;
 
@@ -22,15 +19,5 @@ class Account extends Entity implements JsonSerializable  {
         $this->addType('balance',       'float');
 
         $this->addResolvable('owner');
-    }
-
-    public function jsonSerialize() {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'description' => $this->description,
-            'type' => $this->type,
-            'balance' => $this->balance
-        ];
     }
 }
