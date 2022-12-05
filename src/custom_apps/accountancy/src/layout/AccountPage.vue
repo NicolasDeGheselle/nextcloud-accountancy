@@ -101,9 +101,9 @@ export default {
         this.Load();
     },
     beforeRouteUpdate(to, from, next) {
-    this.name = to.params.name
-    next()
-  }
+       this.name = to.params.name
+       next()
+    }
 };
 </script>
 <style>

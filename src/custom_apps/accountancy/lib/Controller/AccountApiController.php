@@ -20,15 +20,14 @@ class AccountAPIController extends ApiController {
 	 * @param AccountService $service
 	 * @param $userId
 	 */
-    public function __construct(string $appName, IRequest $request, AccountService $service, ?string $userId = null) {
+    public function __construct(string $appName, IRequest $request, AccountService $service, ?string $UserId = null) {
 		parent::__construct($appName, $request);
 		$this->accountService = $service;
-		$this->userId = $userId;
+		$this->userId = $UserId;
 	}
 
-    	/**
+    /**
 	 * @NoAdminRequired
-	 * @CORS
 	 * @NoCSRFRequired
 	 *
 	 * Return all of the boards that the current user has access to.

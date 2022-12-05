@@ -13,6 +13,6 @@ class AccountService {
 	}
 
     public function findAll(string $userId): array {
-        return $this->mapper->findAll($this->userId);
+        return $this->mapper->findAll($userId);
 	}
 }
