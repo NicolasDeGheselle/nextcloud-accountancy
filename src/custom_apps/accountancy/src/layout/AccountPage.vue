@@ -2,13 +2,30 @@
     <div>
         <div>
             <div class="flex-container main-container">
-                        <Breadcrumbs>
-            <Breadcrumb
-            v-for="parent in parentTree"
-        	:key="parent.id"
-            :title="parent.name"
-            :to="{ name: (parent.id) ? 'accounts' : 'main', params: { accountId: parent.id }}"/>
-        </Breadcrumbs>
+                <div>
+                    <NcBreadcrumbs>
+                        <NcBreadcrumb
+                        v-for="parent in parentTree"
+                	    :key="parent.id"
+                        :title="parent.name"
+                        :to="{ name: (parent.id) ? 'accounts' : 'main', params: { accountId: parent.id }}"/>
+                        <template #actions>
+                            <NcActions>
+                                <template #icon>
+		                        	<Plus :size="20" />
+		                        </template>
+                                <NcActionButton :close-after-click="true" @click="modals.addSubAccount = true">
+				            	    <template #icon>
+				            	    	<Plus :size="20" />
+				            	    </template>
+				            	    New sub-account
+				                </NcActionButton>
+                            </NcActions>
+				        </template>
+                    </NcBreadcrumbs>
+                    <span class="description">{{ account.description }}</span>
+                </div>
+
                 <Money class="main-money" :balance="account.balance" positiveBalanceClass="text-primary-light"/>
             </div>
         </div>
@@ -24,32 +41,67 @@
             </div>
         </div>
         <div class="content-container">
-            <h4 class="content-title">Transactions</h4>
+            <div class="flex-container">
+                <h4 class="content-title">Transactions</h4>
+                <NcActions>
+                    <NcActionButton :close-after-click="true" @click="modals.addTransaction = true">
+				    	<template #icon>
+				    		<Plus :size="20" />
+				    	</template>
+				    	New transaction
+				    </NcActionButton>
+                    <NcActionButton :close-after-click="true" @click="modals.addTransaction = true">
+				    	<template #icon>
+				    		<Upload :size="20" />
+				    	</template>
+				    	Import transactions
+				    </NcActionButton>
+                </NcActions>
+            </div>
             <Transactions :transactionsList="account.transactions" />
         </div>
+
+        <NcModal
+			v-if="modals.addSubAccount"
+			@close="modals.addSubAccount = false"
+			title="Add sub-account"
+			:outTransition="true">
+			<div class="modal__content">Add sub account</div>
+		</NcModal>
+        <NcModal
+			v-if="modals.addTransaction"
+			@close="modals.addTransaction = false"
+			title="Add transaction"
+			:outTransition="true">
+			<div class="modal__content">Add transaction</div>
+		</NcModal>
     </div>
 </template>
 
 <script>
 import AccountService from "../services/AccountService";
 
-import Breadcrumbs from "@nextcloud/vue/dist/Components/Breadcrumbs";
-import Breadcrumb from "@nextcloud/vue/dist/Components/Breadcrumb";
+import NcBreadcrumbs from "@nextcloud/vue/dist/Components/NcBreadcrumbs.js";
+import NcBreadcrumb from "@nextcloud/vue/dist/Components/NcBreadcrumb.js";
+import NcActions from "@nextcloud/vue/dist/Components/NcActions.js";
+import NcActionButton from "@nextcloud/vue/dist/Components/NcActionButton.js";
+import NcModal from "@nextcloud/vue/dist/Components/NcModal.js";
+
 import Money from "../components/Money.vue";
 import Graphs from "../components/Graphs.vue";
 import Accounts from "../components/Accounts.vue";
 import Transactions from "../components/Transactions.vue";
 
+import Plus from 'vue-material-design-icons/Plus'
+import Upload from 'vue-material-design-icons/Upload'
+
 export default {
 	name: 'AccountPage',
     props: ["accountId"],
     components: {
-        Breadcrumbs,
-        Breadcrumb,
-        Accounts,
-        Transactions,
-        Money,
-        Graphs
+        NcBreadcrumbs, NcBreadcrumb, NcActions, NcActionButton, NcModal,
+        Accounts, Transactions, Money, Graphs,
+        Plus, Upload,
     },
 	data() {
 		return {
@@ -61,6 +113,10 @@ export default {
                 subAccounts: [],
                 transactions: []
             },
+            modals: {
+                addSubAccount: false,
+                addTransaction: false
+            }
 		}
 	},
     computed: {
@@ -107,6 +163,11 @@ export default {
 };
 </script>
 <style>
+/* Override default nextcloud style */
+.breadcrumb__crumbs {
+    min-width: inherit !important;
+}
+/*  */
 .main-title {
     font-weight: lighter;
     font-size: 42px;
@@ -118,7 +179,8 @@ export default {
     font-weight: lighter;
 }
 .main-container {
-    padding: 1rem 2rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
     align-items: center;
 }
 
@@ -137,6 +199,13 @@ export default {
     font-size: 32px;
     margin: 0.6rem 0;
     font-weight: lighter;
+}
+
+@media (max-width: 768px) {
+    .main-container{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }
 
 </style>
