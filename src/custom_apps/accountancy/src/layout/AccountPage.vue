@@ -56,6 +56,19 @@
 				    	</template>
 				    	Import transactions
 				    </NcActionButton>
+                    <NcActionSeparator />
+                    <NcActionButton :close-after-click="true" disabled>
+				    	<template #icon>
+				    		<ArrowAll :size="20" />
+				    	</template>
+				    	Move
+				    </NcActionButton>
+                    <NcActionButton :close-after-click="true" disabled>
+				    	<template #icon>
+				    		<Delete :size="20" />
+				    	</template>
+				    	Delete
+				    </NcActionButton>
                 </NcActions>
             </div>
             <Transactions :transactionsList="account.transactions" />
@@ -85,6 +98,7 @@ import NcBreadcrumbs from "@nextcloud/vue/dist/Components/NcBreadcrumbs.js";
 import NcBreadcrumb from "@nextcloud/vue/dist/Components/NcBreadcrumb.js";
 import NcActions from "@nextcloud/vue/dist/Components/NcActions.js";
 import NcActionButton from "@nextcloud/vue/dist/Components/NcActionButton.js";
+import NcActionSeparator from "@nextcloud/vue/dist/Components/NcActionSeparator.js";
 import NcModal from "@nextcloud/vue/dist/Components/NcModal.js";
 
 import Money from "../components/Money.vue";
@@ -94,14 +108,16 @@ import Transactions from "../components/Transactions.vue";
 
 import Plus from 'vue-material-design-icons/Plus'
 import Upload from 'vue-material-design-icons/Upload'
+import Delete from 'vue-material-design-icons/Delete'
+import ArrowAll from 'vue-material-design-icons/ArrowAll'
 
 export default {
 	name: 'AccountPage',
     props: ["accountId"],
     components: {
-        NcBreadcrumbs, NcBreadcrumb, NcActions, NcActionButton, NcModal,
+        NcBreadcrumbs, NcBreadcrumb, NcActions, NcActionButton, NcActionSeparator, NcModal,
         Accounts, Transactions, Money, Graphs,
-        Plus, Upload,
+        Plus, Upload, Delete, ArrowAll
     },
 	data() {
 		return {

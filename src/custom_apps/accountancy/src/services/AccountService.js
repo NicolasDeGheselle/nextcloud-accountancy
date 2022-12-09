@@ -16,19 +16,22 @@ class Account {
                 name: "test",
                 description: "edead dslfk mqfdlk mldqskf",
                 value: 50.50,
-                date: "01/05/2022"
+                date: "01/05/2022",
+                selected: false,
             },
             {
                 name: "test",
                 description: "edead dslfk mqfdlk mldqskf",
                 value: 50.50,
-                date: "01/05/2022"
+                date: "01/05/2022",
+                selected: false,
             },
             {
                 name: "test",
                 description: "edead dslfk mqfdlk mldqskf",
                 value: 50.50,
-                date: "01/05/2022"
+                date: "01/05/2022",
+                selected: false,
             }
         ];
     }

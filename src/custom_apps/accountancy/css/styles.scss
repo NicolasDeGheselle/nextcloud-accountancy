@@ -11,6 +11,11 @@
 .flex-container {
 	display: flex;
 	justify-content: space-between;
+    align-items: center;
+}
+
+.w-100 {
+    width: 100%;
 }
 
 .modal__content {
@@ -29,6 +34,9 @@
     padding: 0.6rem;
 }
 .simple-list .simple-item:hover {
+    background-color: var(--color-background-hover);
+}
+.simple-list .simple-item.active {
     background-color: var(--color-background-hover);
 }
 
