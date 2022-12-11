@@ -54,7 +54,22 @@
 	    @close="modals.addTransaction = false"
 	    title="Add transaction"
 	    :outTransition="true">
-	    <div class="modal__content">Add transaction</div>
+	    <div class="modal__content">
+            <h2>New transaction</h2>
+            <div class="wrapper">
+            <NcTextField label="Name" :label-visible="true"></NcTextField>
+            <NcTextField label="Descritption" :label-visible="true"></NcTextField>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <NcTextField label="Value" :label-visible="true"></NcTextField>
+                </div>
+                <div class="col-6">
+                    <label>Date</label>
+                    <NcDatetimePicker type="datetime" />
+                </div>
+            </div>
+        </div>
 	</NcModal>
 </div>
 </template>
@@ -64,6 +79,9 @@ import NcActions from "@nextcloud/vue/dist/Components/NcActions.js";
 import NcActionButton from "@nextcloud/vue/dist/Components/NcActionButton.js";
 import NcActionCheckbox from "@nextcloud/vue/dist/Components/NcActionCheckbox.js";
 import NcActionSeparator from "@nextcloud/vue/dist/Components/NcActionSeparator.js";
+import NcModal from "@nextcloud/vue/dist/Components/NcModal.js";
+import NcTextField from "@nextcloud/vue/dist/Components/NcTextField.js";
+import NcDatetimePicker from "@nextcloud/vue/dist/Components/NcDatetimePicker.js";
 
 import Plus from 'vue-material-design-icons/Plus'
 import Upload from 'vue-material-design-icons/Upload'
@@ -75,7 +93,7 @@ import Money from "./Money";
 export default {
 	name: 'Transactions',
     components: {
-		NcActionCheckbox, NcActions, NcActionButton, NcActionSeparator,
+		NcActionCheckbox, NcActions, NcActionButton, NcActionSeparator, NcModal, NcTextField, NcDatetimePicker,
         Plus, Upload, Delete, ArrowAll,
         Money
 	},
