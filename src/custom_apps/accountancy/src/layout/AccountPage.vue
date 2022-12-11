@@ -40,39 +40,7 @@
                 </div>
             </div>
         </div>
-        <div class="content-container">
-            <div class="flex-container">
-                <h4 class="content-title">Transactions</h4>
-                <NcActions>
-                    <NcActionButton :close-after-click="true" @click="modals.addTransaction = true">
-				    	<template #icon>
-				    		<Plus :size="20" />
-				    	</template>
-				    	New transaction
-				    </NcActionButton>
-                    <NcActionButton :close-after-click="true" @click="modals.addTransaction = true">
-				    	<template #icon>
-				    		<Upload :size="20" />
-				    	</template>
-				    	Import transactions
-				    </NcActionButton>
-                    <NcActionSeparator />
-                    <NcActionButton :close-after-click="true" disabled>
-				    	<template #icon>
-				    		<ArrowAll :size="20" />
-				    	</template>
-				    	Move
-				    </NcActionButton>
-                    <NcActionButton :close-after-click="true" disabled>
-				    	<template #icon>
-				    		<Delete :size="20" />
-				    	</template>
-				    	Delete
-				    </NcActionButton>
-                </NcActions>
-            </div>
-            <Transactions :transactionsList="account.transactions" />
-        </div>
+        <Transactions :transactionsList="account.transactions" />
 
         <NcModal
 			v-if="modals.addSubAccount"
@@ -80,13 +48,6 @@
 			title="Add sub-account"
 			:outTransition="true">
 			<div class="modal__content">Add sub account</div>
-		</NcModal>
-        <NcModal
-			v-if="modals.addTransaction"
-			@close="modals.addTransaction = false"
-			title="Add transaction"
-			:outTransition="true">
-			<div class="modal__content">Add transaction</div>
 		</NcModal>
     </div>
 </template>
@@ -98,7 +59,6 @@ import NcBreadcrumbs from "@nextcloud/vue/dist/Components/NcBreadcrumbs.js";
 import NcBreadcrumb from "@nextcloud/vue/dist/Components/NcBreadcrumb.js";
 import NcActions from "@nextcloud/vue/dist/Components/NcActions.js";
 import NcActionButton from "@nextcloud/vue/dist/Components/NcActionButton.js";
-import NcActionSeparator from "@nextcloud/vue/dist/Components/NcActionSeparator.js";
 import NcModal from "@nextcloud/vue/dist/Components/NcModal.js";
 
 import Money from "../components/Money.vue";
@@ -107,17 +67,14 @@ import Accounts from "../components/Accounts.vue";
 import Transactions from "../components/Transactions.vue";
 
 import Plus from 'vue-material-design-icons/Plus'
-import Upload from 'vue-material-design-icons/Upload'
-import Delete from 'vue-material-design-icons/Delete'
-import ArrowAll from 'vue-material-design-icons/ArrowAll'
 
 export default {
 	name: 'AccountPage',
     props: ["accountId"],
     components: {
-        NcBreadcrumbs, NcBreadcrumb, NcActions, NcActionButton, NcActionSeparator, NcModal,
+        NcBreadcrumbs, NcBreadcrumb, NcActions, NcActionButton, NcModal,
         Accounts, Transactions, Money, Graphs,
-        Plus, Upload, Delete, ArrowAll
+        Plus
     },
 	data() {
 		return {
@@ -131,7 +88,6 @@ export default {
             },
             modals: {
                 addSubAccount: false,
-                addTransaction: false
             }
 		}
 	},

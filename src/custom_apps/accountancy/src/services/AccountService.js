@@ -1,4 +1,8 @@
-class Account {
+import axios from '@nextcloud/axios'
+import { generateUrl } from '@nextcloud/router'
+import { Transaction } from './TransactionService';
+
+export class Account {
     constructor(name, subAccounts) {
         this.parents = [];
         if (name)
@@ -12,33 +16,13 @@ class Account {
         this.type = "bank";
         this.balance = 500.155050;
         this.transactions = [
-            {
-                name: "test",
-                description: "edead dslfk mqfdlk mldqskf",
-                value: 50.50,
-                date: "01/05/2022",
-                selected: false,
-            },
-            {
-                name: "test",
-                description: "edead dslfk mqfdlk mldqskf",
-                value: 50.50,
-                date: "01/05/2022",
-                selected: false,
-            },
-            {
-                name: "test",
-                description: "edead dslfk mqfdlk mldqskf",
-                value: 50.50,
-                date: "01/05/2022",
-                selected: false,
-            }
+            new Transaction(),
+            new Transaction(),
+            new Transaction(),
+            new Transaction()
         ];
     }
 }
-
-import axios from '@nextcloud/axios'
-import { generateUrl } from '@nextcloud/router'
 
 export default class AccountService {
 
@@ -69,4 +53,3 @@ export default class AccountService {
         return test;
     }
 }
-  
