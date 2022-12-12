@@ -60,13 +60,15 @@
             <NcTextField label="Name" :label-visible="true"></NcTextField>
             <NcTextField label="Descritption" :label-visible="true"></NcTextField>
             </div>
-            <div class="row">
+            <div class="row gapped">
                 <div class="col-6">
-                    <NcTextField label="Value" :label-visible="true"></NcTextField>
+                    <NcTextField label="Value" :label-visible="true" class="mx-1"></NcTextField>
                 </div>
                 <div class="col-6">
-                    <label>Date</label>
-                    <NcDatetimePicker type="datetime" />
+                    <div class="mx-1">
+                        <label class="form-label">Date</label>
+                        <NcDatetimePicker type="datetime" />
+                    </div>
                 </div>
             </div>
         </div>
