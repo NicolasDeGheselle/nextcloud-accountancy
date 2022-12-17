@@ -2,8 +2,7 @@ import Vue from 'vue'
 import Router  from 'vue-router'
 import { generateUrl } from '@nextcloud/router'
 
-import AccountPage from './layout/AccountPage';
-import Money from './components/Money';
+import AccountPage from './layout/accounts/_index';
 
 Vue.use(Router)
 

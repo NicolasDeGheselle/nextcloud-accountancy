@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import Money from "./Money";
+import Money from "../../components/Money";
 
 export default {
 	name: 'Accounts',

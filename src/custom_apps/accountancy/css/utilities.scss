@@ -1,0 +1,23 @@
+.text-primary-light {
+    color: var(--color-primary-light-text);
+}
+.text-success {
+    color: var(--color-success);
+}
+.text-light {
+    color: var(--color-placeholder-dark)
+}
+
+.flex-container {
+	display: flex;
+	justify-content: space-between;
+    align-items: center;
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
+.w-100 {
+    width: 100%;
+}

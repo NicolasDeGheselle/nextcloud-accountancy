@@ -29,7 +29,7 @@
                 <Money class="main-money" :balance="account.balance" positiveBalanceClass="text-primary-light"/>
             </div>
         </div>
-        <div class="row" v-if="haveSubs">
+        <div class="columns" v-if="haveSubs">
             <div class="col-6 col-md-12">
                 <Graphs class="content-container" :account="account" />
             </div>
@@ -42,29 +42,23 @@
         </div>
         <Transactions :transactionsList="account.transactions" />
 
-        <NcModal
-			v-if="modals.addSubAccount"
-			@close="modals.addSubAccount = false"
-			title="Add sub-account"
-			:outTransition="true">
-			<div class="modal__content">Add sub account</div>
-		</NcModal>
+        <ModalAccount :open.sync="modals.addSubAccount"/>
     </div>
 </template>
 
 <script>
-import AccountService from "../services/AccountService";
-
 import NcBreadcrumbs from "@nextcloud/vue/dist/Components/NcBreadcrumbs.js";
 import NcBreadcrumb from "@nextcloud/vue/dist/Components/NcBreadcrumb.js";
 import NcActions from "@nextcloud/vue/dist/Components/NcActions.js";
 import NcActionButton from "@nextcloud/vue/dist/Components/NcActionButton.js";
-import NcModal from "@nextcloud/vue/dist/Components/NcModal.js";
 
-import Money from "../components/Money.vue";
-import Graphs from "../components/Graphs.vue";
-import Accounts from "../components/Accounts.vue";
-import Transactions from "../components/Transactions.vue";
+import AccountService from "../../services/AccountService";
+
+import ModalAccount from "./ModalAccount.vue";
+import Money from "../../components/Money.vue";
+import Graphs from "./Graphs.vue";
+import Accounts from "./Accounts.vue";
+import Transactions from "./Transactions.vue";
 
 import Plus from 'vue-material-design-icons/Plus'
 
@@ -72,7 +66,8 @@ export default {
 	name: 'AccountPage',
     props: ["accountId"],
     components: {
-        NcBreadcrumbs, NcBreadcrumb, NcActions, NcActionButton, NcModal,
+        NcBreadcrumbs, NcBreadcrumb, NcActions, NcActionButton,
+        ModalAccount,
         Accounts, Transactions, Money, Graphs,
         Plus
     },
