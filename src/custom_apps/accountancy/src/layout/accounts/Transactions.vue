@@ -3,13 +3,13 @@
     <div class="flex-container">
         <h4 class="content-title">Transactions</h4>
         <NcActions>
-            <NcActionButton :close-after-click="true" @click="modals.addTransaction = true">
+            <NcActionButton :close-after-click="true" @click="openModal()">
 		    	<template #icon>
 		    		<Plus :size="20" />
 		    	</template>
 		    	New transaction
 		    </NcActionButton>
-            <NcActionButton :close-after-click="true" @click="modals.addTransaction = true">
+            <NcActionButton :close-after-click="true">
 		    	<template #icon>
 		    		<Upload :size="20" />
 		    	</template>
@@ -45,11 +45,25 @@
 			    	<span class="description">{{transaction.description}}</span>
 			    	<span class="text-light">{{transaction.date}}</span>
                 </div>
+                <NcActions>
+                    <NcActionButton :close-after-click="true" @click="openModal(transaction)">
+					    <template #icon>
+					    	<Pencil :size="20" />
+					    </template>
+					    Edit
+				    </NcActionButton>
+                    <NcActionButton :close-after-click="true" >
+					    <template #icon>
+					    	<Delete :size="20" />
+					    </template>
+					    Delete
+				    </NcActionButton>
+                </NcActions>
             </div>
 
         </li>
     </ul>
-    <ModalTransaction :open.sync="modals.addTransaction"/>
+    <ModalTransaction :open.sync="modal.open" :data="modal.data"/>
 </div>
 </template>
 
@@ -65,6 +79,7 @@ import Plus from 'vue-material-design-icons/Plus'
 import Upload from 'vue-material-design-icons/Upload'
 import Delete from 'vue-material-design-icons/Delete'
 import ArrowAll from 'vue-material-design-icons/ArrowAll'
+import Pencil from 'vue-material-design-icons/Pencil'
 
 import Money from "../../components/Money";
 
@@ -72,7 +87,7 @@ export default {
 	name: 'Transactions',
     components: {
 		NcActionCheckbox, NcActions, NcActionButton, NcActionSeparator,
-        Plus, Upload, Delete, ArrowAll,
+        Plus, Upload, Delete, ArrowAll, Pencil,
         Money, ModalTransaction
 	},
     props: {
@@ -80,10 +95,18 @@ export default {
     },
     data: function () {
       return {
-        modals: {
-            addTransaction: false
+        modal: {
+            data: null,
+            open: false
         }
       }
+    },
+    methods: {
+        openModal: function(transaction)
+        {
+            this.modal.open = true;
+            this.modal.data = transaction;
+        }
     },
     computed: {
         haveSelected: function() {

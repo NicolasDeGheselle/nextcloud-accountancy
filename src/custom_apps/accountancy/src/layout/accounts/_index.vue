@@ -26,7 +26,23 @@
                     <span class="description">{{ account.description }}</span>
                 </div>
 
+                <div>
                 <Money class="main-money" :balance="account.balance" positiveBalanceClass="text-primary-light"/>
+                <NcActions>
+                    <NcActionButton :close-after-click="true" @click="modals.addSubAccount = true">
+					    <template #icon>
+					    	<Pencil :size="20" />
+					    </template>
+					    Edit
+				    </NcActionButton>
+                    <NcActionButton :close-after-click="true" @click="modals.addSubAccount = true" >
+					    <template #icon>
+					    	<Delete :size="20" />
+					    </template>
+					    Delete
+				    </NcActionButton>
+                </NcActions>
+                </div>
             </div>
         </div>
         <div class="columns" v-if="haveSubs">
@@ -61,6 +77,8 @@ import Accounts from "./Accounts.vue";
 import Transactions from "./Transactions.vue";
 
 import Plus from 'vue-material-design-icons/Plus'
+import Delete from 'vue-material-design-icons/Delete'
+import Pencil from 'vue-material-design-icons/Pencil'
 
 export default {
 	name: 'AccountPage',
@@ -69,7 +87,7 @@ export default {
         NcBreadcrumbs, NcBreadcrumb, NcActions, NcActionButton,
         ModalAccount,
         Accounts, Transactions, Money, Graphs,
-        Plus
+        Plus, Delete, Pencil
     },
 	data() {
 		return {
