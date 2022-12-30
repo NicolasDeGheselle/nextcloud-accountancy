@@ -1,5 +1,5 @@
 <template>
-        <NcModal
+    <NcModal
 	    v-if="open"
 	    @close="$emit('update:open', false)"
 	    title="Add transaction"

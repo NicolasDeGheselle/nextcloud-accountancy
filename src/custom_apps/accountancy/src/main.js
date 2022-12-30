@@ -2,6 +2,7 @@ import { generateFilePath } from '@nextcloud/router'
 import '../css/styles.scss'
 
 import Vue from 'vue'
+import Vuex from 'vuex'
 
 import App from './App'
 import router from './router'

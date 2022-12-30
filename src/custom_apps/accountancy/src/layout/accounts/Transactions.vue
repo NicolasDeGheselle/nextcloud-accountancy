@@ -22,7 +22,7 @@
 		    	</template>
 		    	Move
 		    </NcActionButton>
-            <NcActionButton :close-after-click="true" :disabled="!haveSelected">
+            <NcActionButton :close-after-click="true" :disabled="!haveSelected" @click="openModalDelete()">
 		    	<template #icon>
 		    		<Delete :size="20" />
 		    	</template>
@@ -36,15 +36,19 @@
         :key="transaction.id"
         :class="{'active': transaction.selected }">
             <NcActionCheckbox :checked="transaction.selected" @change="(event) => transaction.selected = event.target.checked"></NcActionCheckbox>
-            <div class="w-100" @click="transaction.selected = !transaction.selected">
-                <div class="flex-container">
-			    	<span class="name">{{transaction.name}}</span>
-			    	<Money :balance="transaction.value" />
+            <div class="w-100 columns">
+                <div class="column">
+                    <div class="flex-container">
+			        	<span class="name">{{transaction.name}}</span>
+			        	<Money :balance="transaction.value" />
+                    </div>
+                    <div class="flex-container">
+			        	<span class="description">{{transaction.description}}</span>
+			        	<span class="text-light">{{transaction.date}}</span>
+                    </div>
                 </div>
-                <div class="flex-container">
-			    	<span class="description">{{transaction.description}}</span>
-			    	<span class="text-light">{{transaction.date}}</span>
-                </div>
+
+                <div class="column col-auto" @click="selectOnly(transaction)">
                 <NcActions>
                     <NcActionButton :close-after-click="true" @click="openModal(transaction)">
 					    <template #icon>
@@ -52,18 +56,20 @@
 					    </template>
 					    Edit
 				    </NcActionButton>
-                    <NcActionButton :close-after-click="true" >
+                    <NcActionButton :close-after-click="true" @click="openModalDelete(transaction)">
 					    <template #icon>
 					    	<Delete :size="20" />
 					    </template>
 					    Delete
 				    </NcActionButton>
                 </NcActions>
+                </div>
             </div>
 
         </li>
     </ul>
     <ModalTransaction :open.sync="modal.open" :data="modal.data"/>
+    <ConfirmModal :open.sync="modalDelete.open" :text="modalDelete.text" title="Delete transaction(s)"/>
 </div>
 </template>
 
@@ -74,6 +80,7 @@ import NcActionCheckbox from "@nextcloud/vue/dist/Components/NcActionCheckbox.js
 import NcActionSeparator from "@nextcloud/vue/dist/Components/NcActionSeparator.js";
 
 import ModalTransaction from './ModalTransaction.vue'
+import ConfirmModal from '../../components/ConfirmModal.vue'
 
 import Plus from 'vue-material-design-icons/Plus'
 import Upload from 'vue-material-design-icons/Upload'
@@ -88,7 +95,7 @@ export default {
     components: {
 		NcActionCheckbox, NcActions, NcActionButton, NcActionSeparator,
         Plus, Upload, Delete, ArrowAll, Pencil,
-        Money, ModalTransaction
+        Money, ModalTransaction, ConfirmModal
 	},
     props: {
         transactionsList: Array
@@ -97,7 +104,11 @@ export default {
       return {
         modal: {
             data: null,
-            open: false
+            open: false,
+        },
+        modalDelete: {
+            open: false,
+            text: ""
         }
       }
     },
@@ -106,6 +117,24 @@ export default {
         {
             this.modal.open = true;
             this.modal.data = transaction;
+        },
+        openModalDelete: function() {
+            let selected = this.transactionsList.filter(t => !!t.selected);
+
+            if (selected.length > 1) {
+                this.modalDelete.text = `Delete these '${selected.length}' transactions ?`;
+            }
+            else
+            {
+                this.modalDelete.text = `Delete the transaction '${selected[0].name}' ?`;
+            }
+            
+            this.modalDelete.open = true;
+        },
+        selectOnly: function(transaction) {
+            console.log("test");
+            this.transactionsList.forEach(t => t.selected = false);
+            transaction.selected = true;
         }
     },
     computed: {

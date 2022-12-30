@@ -28,14 +28,14 @@
 
                 <div>
                 <Money class="main-money" :balance="account.balance" positiveBalanceClass="text-primary-light"/>
-                <NcActions>
+                <NcActions v-if="account.id != undefined">
                     <NcActionButton :close-after-click="true" @click="modals.addSubAccount = true">
 					    <template #icon>
 					    	<Pencil :size="20" />
 					    </template>
 					    Edit
 				    </NcActionButton>
-                    <NcActionButton :close-after-click="true" @click="modals.addSubAccount = true" >
+                    <NcActionButton :close-after-click="true" @click="modals.deleteAccount = true" >
 					    <template #icon>
 					    	<Delete :size="20" />
 					    </template>
@@ -45,20 +45,23 @@
                 </div>
             </div>
         </div>
-        <div class="columns" v-if="haveSubs">
-            <div class="col-6 col-md-12">
-                <Graphs class="content-container" :account="account" />
-            </div>
-            <div class="col-6 col-md-12">
-                <div class="content-container">
-                    <h4 class="content-title">Accounts</h4>
-                    <Accounts :accountsList="account.subAccounts" :total="account.balance"/>
+        <div class="container">
+            <div class="columns" v-if="haveSubs">
+                <div class="col-6 col-md-12">
+                    <Graphs class="content-container" :account="account" />
+                </div>
+                <div class="col-6 col-md-12">
+                    <div class="content-container">
+                        <h4 class="content-title">Accounts</h4>
+                        <Accounts :accountsList="account.subAccounts" :total="account.balance"/>
+                    </div>
                 </div>
             </div>
         </div>
         <Transactions :transactionsList="account.transactions" />
 
         <ModalAccount :open.sync="modals.addSubAccount"/>
+        <ConfirmModal :open.sync="modals.deleteAccount" :text="`Delete the account '${account.name}' ?`" title="Delete account"/>
     </div>
 </template>
 
@@ -70,6 +73,7 @@ import NcActionButton from "@nextcloud/vue/dist/Components/NcActionButton.js";
 
 import AccountService from "../../services/AccountService";
 
+import ConfirmModal from '../../components/ConfirmModal.vue'
 import ModalAccount from "./ModalAccount.vue";
 import Money from "../../components/Money.vue";
 import Graphs from "./Graphs.vue";
@@ -85,7 +89,7 @@ export default {
     props: ["accountId"],
     components: {
         NcBreadcrumbs, NcBreadcrumb, NcActions, NcActionButton,
-        ModalAccount,
+        ModalAccount, ConfirmModal,
         Accounts, Transactions, Money, Graphs,
         Plus, Delete, Pencil
     },
@@ -101,6 +105,7 @@ export default {
             },
             modals: {
                 addSubAccount: false,
+                deleteAccount: false,
             }
 		}
 	},

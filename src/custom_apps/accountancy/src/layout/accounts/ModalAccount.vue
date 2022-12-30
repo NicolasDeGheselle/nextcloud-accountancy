@@ -5,10 +5,10 @@
 			title="Add sub-account"
 			:outTransition="true">
 	    <div class="modal__content">
-            <h2>New account</h2>
+            <h2>New sub account</h2>
             <div class="wrapper">
-            <NcTextField label="Name" :label-visible="true"></NcTextField>
-            <NcTextField label="Descritption" :label-visible="true"></NcTextField>
+            <NcTextField label="Name" :label-visible="true" :value="transaction.name"></NcTextField>
+            <NcTextField label="Description" :label-visible="true" :value="transaction.description"></NcTextField>
             </div>
 
             <NcButton class="ml-auto" type="primary">Send</NcButton>
@@ -28,7 +28,8 @@ export default {
 		NcModal, NcTextField, NcButton
 	},
     props: {
-        open: Boolean
+        open: Boolean,
+        transaction: Object
     }
 };
 </script>
