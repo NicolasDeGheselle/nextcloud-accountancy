@@ -28,7 +28,7 @@
 
                 <div>
                 <Money class="main-money" :balance="account.balance" positiveBalanceClass="text-primary-light"/>
-                <NcActions v-if="account.id != undefined">
+                <NcActions v-if="account.id">
                     <NcActionButton :close-after-click="true" @click="modals.addSubAccount = true">
 					    <template #icon>
 					    	<Pencil :size="20" />

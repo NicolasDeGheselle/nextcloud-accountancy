@@ -3,24 +3,16 @@ import { generateUrl } from '@nextcloud/router'
 import { Transaction } from './TransactionService';
 
 export class Account {
-    constructor(name, subAccounts) {
-        this.parents = [];
-        if (name)
-        {
-            this.id = "ID-"+name;
-            this.name = name;
-        }
+    constructor() {
+        this.id = "";
+        this.name = "";
+        this.description = "";
+        this.type = "";
+        this.balance = 0;
 
-        this.subAccounts = subAccounts;
-        this.description = "Root account";
-        this.type = "bank";
-        this.balance = 500.155050;
-        this.transactions = [
-            new Transaction(),
-            new Transaction(),
-            new Transaction(),
-            new Transaction()
-        ];
+        this.transactions = [];
+        this.parents = [];
+        this.subAccounts = [];
     }
 }
 
@@ -32,10 +24,12 @@ export default class AccountService {
 	}
 
     GetRoot() {
-        return new Account(null, [
-            new Account("Test-1"),
-            new Account("Test-2")
-        ]);
+        let account = new Account();
+        let sub = new Account();
+        sub.id = "TEST-1";
+        
+        account.subAccounts = [sub];
+        return account;
     }
 
     GetById(id) {
@@ -43,8 +37,8 @@ export default class AccountService {
             console.debug(response);
         });
 
-
-        let test = new Account("NAME_" + id);
+        let test = new Account();
+        test.id = id;
         test.parents = [{
             id: 'bloupy',
             name: "Bloupy !"
