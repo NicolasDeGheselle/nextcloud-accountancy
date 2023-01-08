@@ -1,12 +1,12 @@
 @use 'grid';
 @use 'utilities';
 
-.modal__content {
-    padding: 1rem;
+.modal-content {
+    padding: 0.5rem;
 }
-.form-label {
-    padding: 4px 0;
-    display: block;
+
+:root {
+    --color-border-maxcontrast: #949494;
 }
 
 /** Simple list **/

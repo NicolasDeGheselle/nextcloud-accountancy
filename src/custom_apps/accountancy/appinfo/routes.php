@@ -16,11 +16,9 @@ return [
 	],
 	'routes' => [
 		[ 'name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-		[ 'name' => 'page#account', 'url' => '/accounts/{id}', 'verb' => 'GET'],
 
 		// API
 		
-		['name' => 'account_api#index', 'url' => '/api/v{apiVersion}/accounts', 'verb' => 'GET'],
-		['name' => 'account_api#get', 'url' => '/api/v{apiVersion}/accounts/{accountId}', 'verb' => 'GET']
+		['name' => 'account_api#import', 'url' => '/api/v{apiVersion}/import', 'verb' => 'POST'],
 	]
 ];

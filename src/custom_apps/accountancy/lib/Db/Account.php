@@ -12,7 +12,7 @@ class Account extends RelationalEntity  {
     protected $balance;
 
     public function __construct() {
-        $this->addType('id','integer');
+        $this->addType('id',            'integer');
         $this->addType('name',          'string');
         $this->addType('description',   'string');
         $this->addType('type',          'string');
